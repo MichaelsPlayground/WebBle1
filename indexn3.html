@@ -130,7 +130,7 @@
         })
         .then(characteristic => {
             console.log("Status Characteristic discovered:", characteristic.uuid);
-            sensorCharacteristicFound = characteristic;
+            statusCharacteristicFound = characteristic;
             characteristic.addEventListener('characteristicvaluechanged', handleCharacteristicChange);
             characteristic.startNotifications();
             console.log("Notifications Started.");
