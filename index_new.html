@@ -71,7 +71,7 @@
     //Define BLE Device Specs
     var deviceName ='ESP32';
     var bleService = '19b10000-e8f2-537e-4f6c-d104768a1214';
-    var ButtonCharacteristic = '19b10002-e8f2-537e-4f6c-d104768a1214';
+    var ButtonCharacteristic = '19b10004-e8f2-537e-4f6c-d104768a1214';
     var wifiCharacteristic = '19b10003-e8f2-537e-4f6c-d104768a1214';
     
     //Global Variables to Handle Bluetooth
@@ -89,7 +89,7 @@
     // Disconnect Button
     disconnectButton.addEventListener('click', disconnectDevice);
 
-    // Write to the ESP32 LED Characteristic
+    // Write to the ESP32 Button Characteristic
     onButton.addEventListener('click', () => writeOnCharacteristic(1));
     offButton.addEventListener('click', () => writeOnCharacteristic(0));
 
