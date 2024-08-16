@@ -17,7 +17,7 @@
 </head>
 <body>
     <div class="topnav">
-        <h1>ESP32 Web BLE Application</h1>
+        <h1>ESP32 Web BLE Application V8</h1>
     </div>
     <div class="content">
         <div class="card-grid">
@@ -90,6 +90,7 @@
     disconnectButton.addEventListener('click', disconnectDevice);
 
     // Write to the ESP32 Button Characteristic
+    restartButton.addEventListener('click', () => writeOnCharacteristic(2));
     onButton.addEventListener('click', () => writeOnCharacteristic(1));
     offButton.addEventListener('click', () => writeOnCharacteristic(0));
 
