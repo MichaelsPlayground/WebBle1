@@ -46,7 +46,7 @@
                 <h2>Control GPIO 10</h2>
                 <button id="onButton10" class="onButton">ON</button>
                 <button id="offButton10" class="offButton">OFF</button>
-                <p class="gray-label">Last value sent: <span id="valueSent"></span></p>
+                <p class="gray-label">Last value sent: <span id="value10Sent"></span></p>
             </div>
         </div>
     </div>
@@ -65,14 +65,15 @@
     const offButton10 = document.getElementById('offButton10');
     const retrievedValue = document.getElementById('valueContainer');
     const latestValueSent = document.getElementById('valueSent');
+    const latestValue10Sent = document.getElementById('value10Sent');
     const bleStateContainer = document.getElementById('bleState');
     const timestampContainer = document.getElementById('timestamp');
 
     //Define BLE Device Specs
     var deviceName ='ESP32 C3';
-    var bleService = '19b10000-e8f2-537e-4f6c-d104768a1214';
-    var ledCharacteristic = '19b10002-e8f2-537e-4f6c-d104768a1214';
-    var sensorCharacteristic= '19b10001-e8f2-537e-4f6c-d104768a1214';
+    var bleService = '84c6d000-d0e5-41f3-bc17-40eb58d38ff3';
+    var ledCharacteristic = '84c6d002-d0e5-41f3-bc17-40eb58d38ff3';
+    var sensorCharacteristic= '84c6d001-d0e5-41f3-bc17-40eb58d38ff3';
 
     //Global Variables to Handle Bluetooth
     var bleServer;
@@ -194,7 +195,7 @@
                 return characteristic.writeValue(data);
             })
             .then(() => {
-                latestValueSent.innerHTML = value;
+                latestValue10Sent.innerHTML = value;
                 console.log("Value written to LEDcharacteristic:", value);
             })
             .catch(error => {
