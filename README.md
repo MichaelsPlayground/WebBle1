@@ -1,5 +1,8 @@
-# WebBle1
-WebBle1
+# Web BLE 1
+
+The scripts inside this repository are in use for my own (home) WebBLE projects and are useless for anything else.
+
+**WebBle1**
 
 see: YOUR_GITHUB_USERNAME.github.io/YOUR_REPOSITORY_NAME
 
