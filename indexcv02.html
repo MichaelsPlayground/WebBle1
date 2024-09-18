@@ -48,6 +48,18 @@
                 <button id="offButton10" class="offButton">OFF</button>
                 <p class="gray-label">Last value sent: <span id="value10Sent"></span></p>
             </div>
+            <div class="card">
+                <h2>Control GPIO 20</h2>
+                <button id="onButton20" class="onButton">ON</button>
+                <button id="offButton20" class="offButton">OFF</button>
+                <p class="gray-label">Last value sent: <span id="value20Sent"></span></p>
+            </div>
+            <div class="card">
+                <h2>Control GPIO 21</h2>
+                <button id="onButton21" class="onButton">ON</button>
+                <button id="offButton21" class="offButton">OFF</button>
+                <p class="gray-label">Last value sent: <span id="value21Sent"></span></p>
+            </div>
         </div>
     </div>
     <div class="footer">
@@ -63,9 +75,15 @@
     const offButton = document.getElementById('offButton');
     const onButton10 = document.getElementById('onButton10');
     const offButton10 = document.getElementById('offButton10');
+    const onButton20 = document.getElementById('onButton20');
+    const offButton20 = document.getElementById('offButton20');
+    const onButton21 = document.getElementById('onButton21');
+    const offButton21 = document.getElementById('offButton21');
     const retrievedValue = document.getElementById('valueContainer');
     const latestValueSent = document.getElementById('valueSent');
     const latestValue10Sent = document.getElementById('value10Sent');
+    const latestValue20Sent = document.getElementById('value20Sent');
+    const latestValue21Sent = document.getElementById('value21Sent');
     const bleStateContainer = document.getElementById('bleState');
     const timestampContainer = document.getElementById('timestamp');
 
@@ -74,6 +92,8 @@
     var bleService = '84c6d000-d0e5-41f3-bc17-40eb58d38ff3';
     var ledCharacteristic = '84c6d002-d0e5-41f3-bc17-40eb58d38ff3';
     var led10Characteristic = '84c6d003-d0e5-41f3-bc17-40eb58d38ff3';
+    var led20Characteristic = '84c6d004-d0e5-41f3-bc17-40eb58d38ff3';
+    var led21Characteristic = '84c6d005-d0e5-41f3-bc17-40eb58d38ff3';
     var sensorCharacteristic= '84c6d001-d0e5-41f3-bc17-40eb58d38ff3';
 
     //Global Variables to Handle Bluetooth
@@ -208,6 +228,48 @@
         }
     }
 
+    function writeOnCharacteristicLed20(value){
+        if (bleServer && bleServer.connected) {
+            bleServiceFound.getCharacteristic(led20Characteristic)
+            .then(characteristic => {
+                console.log("Found the LED characteristic L20: ", characteristic.uuid);
+                const data = new Uint8Array([value]);
+                return characteristic.writeValue(data);
+            })
+            .then(() => {
+                latestValue20Sent.innerHTML = value;
+                console.log("Value written to LEDcharacteristic:", value);
+            })
+            .catch(error => {
+                console.error("Error writing to the LED characteristic: ", error);
+            });
+        } else {
+            console.error ("Bluetooth is not connected. Cannot write to characteristic.")
+            window.alert("Bluetooth is not connected. Cannot write to characteristic. \n Connect to BLE first!")
+        }
+    }
+
+    function writeOnCharacteristicLed21(value){
+        if (bleServer && bleServer.connected) {
+            bleServiceFound.getCharacteristic(led21Characteristic)
+            .then(characteristic => {
+                console.log("Found the LED characteristic L21: ", characteristic.uuid);
+                const data = new Uint8Array([value]);
+                return characteristic.writeValue(data);
+            })
+            .then(() => {
+                latestValue21Sent.innerHTML = value;
+                console.log("Value written to LEDcharacteristic:", value);
+            })
+            .catch(error => {
+                console.error("Error writing to the LED characteristic: ", error);
+            });
+        } else {
+            console.error ("Bluetooth is not connected. Cannot write to characteristic.")
+            window.alert("Bluetooth is not connected. Cannot write to characteristic. \n Connect to BLE first!")
+        }
+    }
+  
     function disconnectDevice() {
         console.log("Disconnect Device.");
         if (bleServer && bleServer.connected) {
