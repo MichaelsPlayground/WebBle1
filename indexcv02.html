@@ -73,6 +73,7 @@
     var deviceName ='ESP32 C3';
     var bleService = '84c6d000-d0e5-41f3-bc17-40eb58d38ff3';
     var ledCharacteristic = '84c6d002-d0e5-41f3-bc17-40eb58d38ff3';
+    var led10Characteristic = '84c6d003-d0e5-41f3-bc17-40eb58d38ff3';
     var sensorCharacteristic= '84c6d001-d0e5-41f3-bc17-40eb58d38ff3';
 
     //Global Variables to Handle Bluetooth
@@ -93,8 +94,8 @@
     // Write to the ESP32 LED Characteristic
     onButton.addEventListener('click', () => writeOnCharacteristic(1));
     offButton.addEventListener('click', () => writeOnCharacteristic(0));
-    onButton10.addEventListener('click', () => writeOnCharacteristicLed10(101));
-    offButton10.addEventListener('click', () => writeOnCharacteristicLed10(100));
+    onButton10.addEventListener('click', () => writeOnCharacteristicLed10(1));
+    offButton10.addEventListener('click', () => writeOnCharacteristicLed10(0));
 
     // Check if BLE is available in your Browser
     function isWebBluetoothEnabled() {
