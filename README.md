@@ -18,6 +18,10 @@ V9: [https://MichaelsPlayground.github.io/WebBle1/indexv9.html](https://Michaels
 
 ESP32 C3 LED
 
+V05: [https://MichaelsPlayground.github.io/WebBle1/indexcv05.html](https://MichaelsPlayground.github.io/WebBle1/indexcv05.html)
+
+V04: [https://MichaelsPlayground.github.io/WebBle1/indexcv04.html](https://MichaelsPlayground.github.io/WebBle1/indexcv04.html)
+
 V03: [https://MichaelsPlayground.github.io/WebBle1/indexcv03.html](https://MichaelsPlayground.github.io/WebBle1/indexcv03.html)
 
 V02: [https://MichaelsPlayground.github.io/WebBle1/indexcv02.html](https://MichaelsPlayground.github.io/WebBle1/indexcv02.html)
