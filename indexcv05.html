@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>ESP32 C3 Web BLE V04</title>
+    <title>ESP32 C3 Web BLE V05</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="favicon.ico">
     <link rel="stylesheet" type="text/css" href="style.css">
@@ -17,7 +17,7 @@
 </head>
 <body>
     <div class="topnav">
-        <h1>ESP32 C3 WebBLE App V04</h1>
+        <h1>ESP32 C3 WebBLE App V05</h1>
     </div>
     <div class="content">
         <div class="card-grid">
@@ -34,6 +34,12 @@
             <button id="onButton05" class="onButton">ON</button>
             <button id="offButton05" class="offButton">OFF</button>
             <p class="gray-label">Last value sent: <span id="value05Sent"></span></p>
+        </div>
+        <div class="card">
+            <h2>Control GPIOs 06-21</h2>
+            <button id="onButton99" class="onButton">ON</button>
+            <button id="offButton99" class="offButton">OFF</button>
+            <p class="gray-label">Last value sent: <span id="value99Sent"></span></p>
         </div>
         <div class="card">
             <h2>Control GPIO 06</h2>
@@ -94,6 +100,8 @@
     const offButton20 = document.getElementById('offButton20');
     const onButton21 = document.getElementById('onButton21');
     const offButton21 = document.getElementById('offButton21');
+    const onButton99 = document.getElementById('onButton99');
+    const offButton99 = document.getElementById('offButton99');
     const retrievedValue = document.getElementById('valueContainer');
     const latestValue05Sent = document.getElementById('value05Sent');
     const latestValue06Sent = document.getElementById('value06Sent');
@@ -101,6 +109,7 @@
     const latestValue10Sent = document.getElementById('value10Sent');
     const latestValue20Sent = document.getElementById('value20Sent');
     const latestValue21Sent = document.getElementById('value21Sent');
+    const latestValue99Sent = document.getElementById('value99Sent');
     const bleStateContainer = document.getElementById('bleState');
     const timestampContainer = document.getElementById('timestamp');
 
@@ -113,6 +122,7 @@
     var led10Characteristic = '84c6d003-d0e5-41f3-bc17-40eb58d38ff3';
     var led20Characteristic = '84c6d004-d0e5-41f3-bc17-40eb58d38ff3';
     var led21Characteristic = '84c6d005-d0e5-41f3-bc17-40eb58d38ff3';
+    var led99Characteristic = '84c6d008-d0e5-41f3-bc17-40eb58d38ff3';
     var sensorCharacteristic= '84c6d001-d0e5-41f3-bc17-40eb58d38ff3';
 
     //Global Variables to Handle Bluetooth
@@ -143,6 +153,8 @@
     offButton20.addEventListener('click', () => writeOnCharacteristicLed20(0));
     onButton21.addEventListener('click', () => writeOnCharacteristicLed21(1));
     offButton21.addEventListener('click', () => writeOnCharacteristicLed21(0));
+    onButton99.addEventListener('click', () => writeOnCharacteristicLed99(1));
+    offButton99.addEventListener('click', () => writeOnCharacteristicLed99(0));
 
     // Check if BLE is available in your Browser
     function isWebBluetoothEnabled() {
@@ -329,6 +341,27 @@
             })
             .then(() => {
                 latestValue21Sent.innerHTML = value;
+                console.log("Value written to LEDcharacteristic:", value);
+            })
+            .catch(error => {
+                console.error("Error writing to the LED characteristic: ", error);
+            });
+        } else {
+            console.error ("Bluetooth is not connected. Cannot write to characteristic.")
+            window.alert("Bluetooth is not connected. Cannot write to characteristic. \n Connect to BLE first!")
+        }
+    }
+
+    function writeOnCharacteristicLed99(value){
+        if (bleServer && bleServer.connected) {
+            bleServiceFound.getCharacteristic(led99Characteristic)
+            .then(characteristic => {
+                console.log("Found the LED characteristic L99: ", characteristic.uuid);
+                const data = new Uint8Array([value]);
+                return characteristic.writeValue(data);
+            })
+            .then(() => {
+                latestValue99Sent.innerHTML = value;
                 console.log("Value written to LEDcharacteristic:", value);
             })
             .catch(error => {
