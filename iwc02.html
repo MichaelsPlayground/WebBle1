@@ -17,7 +17,7 @@
 </head>
 <body>
     <div class="topnav">
-        <h1>ESP32 WebBLE 02/11</h1>
+        <h1>ESP32 WebBLE 02/12</h1>
     </div>
     <div class="content">
         <div class="card-grid">
@@ -389,6 +389,7 @@
     }
 
     function fillDateTime() {
+        console.log("fillDateTime");
         var currentdate = new Date();
         var day = ("00" + currentdate.getDate()).slice(-2); // Convert day to string and slice
         var month = ("00" + (currentdate.getMonth() + 1)).slice(-2);
@@ -397,7 +398,7 @@
         var minutes = ("00" + currentdate.getMinutes()).slice(-2);
         var seconds = ("00" + currentdate.getSeconds()).slice(-2);
 
-        dayContainer.innerHTML = day;
+        dayContainer.value = day;
         var datetime = day + "/" + month + "/" + year + " at " + hours + ":" + minutes + ":" + seconds;
         return datetime;
     }
