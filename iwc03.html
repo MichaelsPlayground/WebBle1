@@ -17,7 +17,7 @@
 </head>
 <body>
     <div class="topnav">
-        <h1>ESP32 WebBLE 03/00</h1>
+        <h1>ESP32 WebBLE 03/01</h1>
     </div>
     <div class="content">
         <div class="card-grid">
@@ -117,27 +117,38 @@
 
     // Submit Button, sending date & time to BLE device
     submitButton.addEventListener('click', (event) => {
-      var txt = document.getElementById("iDay").value;
-      document.getElementById("valueSent").innerHTML = txt;
-      writeOnCharacteristicDay(txt);
-      setTimeout(function(){
-        alert("I am setTimeout");
-      },500); //delay is in milliseconds 
-      txt = document.getElementById("iMonth").value;
-      writeOnCharacteristicMonth(txt);
-      setTimeout(function(){
-        alert("I am setTimeout");
-      },500); //delay is in milliseconds 
-      txt = document.getElementById("iYear").value;
-      writeOnCharacteristicYear(txt);
-      txt = document.getElementById("iHour").value;
-      writeOnCharacteristicHour(txt);
-      txt = document.getElementById("iMinute").value;
-      writeOnCharacteristicMinute(txt);
-      txt = document.getElementById("iSecond").value;
-      writeOnCharacteristicSecond(txt);
+      var day = ("00" + document.getElementById("iDay").value).slice(-2); // Convert day to string and slice
+      var month = ("00" + document.getElementById("iMonth").value).slice(-2);
+      var year = ("0000" + document.getElementById("iYear").value).slice(-4);
+      var hours = ("00" + document.getElementById("iHour").value).slice(-2);
+      var minutes = ("00" + document.getElementById("iMinute").value).slice(-2);
+      var seconds = ("00" + document.getElementById("iSecond").value).slice(-2);
+      var datetime = day + "/" + month + "/" + year + "/" + hours + "/" + minutes + "/" + seconds;
+      writeOnCharacteristicDayTime(datetime);
+      document.getElementById("valueSent").innerHTML = datetime;
+      
     });  
 
+    function writeOnCharacteristicDayTime(value){
+        if (bleServer && bleServer.connected) {
+            bleServiceFound.getCharacteristic(dayCharacteristic)
+            .then(characteristic => {
+                console.log("Found the Day characteristic: ", characteristic.uuid);
+                return characteristic.writeValue(new TextEncoder().encode(value));
+            })
+            .then(() => {
+                latestValueSent.innerHTML = value;
+                console.log("Value written to Day characteristic:", value);
+            })
+            .catch(error => {
+                console.error("Error writing to the Day characteristic: ", error);
+            });
+        } else {
+            console.error ("Bluetooth is not connected. Cannot write to characteristic.")
+            window.alert("Bluetooth is not connected. Cannot write to characteristic. \n Connect to BLE first!")
+        }
+    }
+  
     function writeOnCharacteristicDay(value){
         if (bleServer && bleServer.connected) {
             bleServiceFound.getCharacteristic(dayCharacteristic)
