@@ -17,7 +17,7 @@
 </head>
 <body>
     <div class="topnav">
-        <h1>ESP32 WebBLE 02/17</h1>
+        <h1>ESP32 WebBLE 02/18</h1>
     </div>
     <div class="content">
         <div class="card-grid">
@@ -120,8 +120,14 @@
       var txt = document.getElementById("iDay").value;
       document.getElementById("valueSent").innerHTML = txt;
       writeOnCharacteristicDay(txt);
+      setTimeout(function(){
+        alert("I am setTimeout");
+      },500); //delay is in milliseconds 
       txt = document.getElementById("iMonth").value;
       writeOnCharacteristicMonth(txt);
+      setTimeout(function(){
+        alert("I am setTimeout");
+      },500); //delay is in milliseconds 
       txt = document.getElementById("iYear").value;
       writeOnCharacteristicYear(txt);
       txt = document.getElementById("iHour").value;
