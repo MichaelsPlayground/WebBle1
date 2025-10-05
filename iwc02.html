@@ -17,7 +17,7 @@
 </head>
 <body>
     <div class="topnav">
-        <h1>ESP32 WebBLE 02/05</h1>
+        <h1>ESP32 WebBLE 02/06</h1>
     </div>
     <div class="content">
         <div class="card-grid">
@@ -41,6 +41,9 @@
                 Day: <input type="text" name="Day" id="iDay"> <br><br>
                 Month: <input type="text" name="Month" id="iMonth"> <br><br>
                 Year: <input type="text" name="Year" id="iYear"> <br><br>
+                Hour: <input type="text" name="Day" id="iHour"> <br><br>
+                Minute: <input type="text" name="Month" id="iMinute"> <br><br>
+                Second: <input type="text" name="Year" id="iSecond"> <br><br>
                 <button id="submitButton" class="onButton">submit</button>
                 <p class="gray-label">Last value sent: <span id="valueSent"></span></p>
                 <p id="GFG"></p>
@@ -103,6 +106,16 @@
       var txt = document.getElementById("iDay").value;
       document.getElementById("valueSent").innerHTML = txt;
       writeOnCharacteristicDay(txt);
+      txt = document.getElementById("iMonth").value;
+      writeOnCharacteristicMonth(txt);
+      txt = document.getElementById("iYear").value;
+      writeOnCharacteristicYear(txt);
+      txt = document.getElementById("iHour").value;
+      writeOnCharacteristicHour(txt);
+      txt = document.getElementById("iMinute").value;
+      writeOnCharacteristicMinute(txt);
+      txt = document.getElementById("iSecond").value;
+      writeOnCharacteristicSecond(txt);
     });  
 
     function writeOnCharacteristicDay(value){
@@ -126,20 +139,20 @@
         }
     }
 
-    function writeOnCharacteristicDay(value){
+    function writeOnCharacteristicMonth(value){
         if (bleServer && bleServer.connected) {
-            bleServiceFound.getCharacteristic(dayCharacteristic)
+            bleServiceFound.getCharacteristic(monthCharacteristic)
             .then(characteristic => {
-                console.log("Found the Day characteristic: ", characteristic.uuid);
+                console.log("Found the Month characteristic: ", characteristic.uuid);
                 const data = new Uint8Array([value]);
                 return characteristic.writeValue(data);
             })
             .then(() => {
                 latestValueSent.innerHTML = value;
-                console.log("Value written to Day characteristic:", value);
+                console.log("Value written to Month characteristic:", value);
             })
             .catch(error => {
-                console.error("Error writing to the Day characteristic: ", error);
+                console.error("Error writing to the Month characteristic: ", error);
             });
         } else {
             console.error ("Bluetooth is not connected. Cannot write to characteristic.")
@@ -147,20 +160,20 @@
         }
     }
 
-    function writeOnCharacteristicDay(value){
+    function writeOnCharacteristicYear(value){
         if (bleServer && bleServer.connected) {
-            bleServiceFound.getCharacteristic(dayCharacteristic)
+            bleServiceFound.getCharacteristic(yearCharacteristic)
             .then(characteristic => {
-                console.log("Found the Day characteristic: ", characteristic.uuid);
+                console.log("Found the Year characteristic: ", characteristic.uuid);
                 const data = new Uint8Array([value]);
                 return characteristic.writeValue(data);
             })
             .then(() => {
                 latestValueSent.innerHTML = value;
-                console.log("Value written to Day characteristic:", value);
+                console.log("Value written to Year characteristic:", value);
             })
             .catch(error => {
-                console.error("Error writing to the Day characteristic: ", error);
+                console.error("Error writing to the Year characteristic: ", error);
             });
         } else {
             console.error ("Bluetooth is not connected. Cannot write to characteristic.")
