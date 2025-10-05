@@ -17,7 +17,7 @@
 </head>
 <body>
     <div class="topnav">
-        <h1>ESP32 WebBLE 02/15</h1>
+        <h1>ESP32 WebBLE 02/16</h1>
     </div>
     <div class="content">
         <div class="card-grid">
@@ -179,8 +179,9 @@
             bleServiceFound.getCharacteristic(yearCharacteristic)
             .then(characteristic => {
                 console.log("Found the Year characteristic: ", characteristic.uuid);
-                const data = new Uint16Array([value]);
-                return characteristic.writeValue(data);
+                //const data = new Uint16Array([value]);
+                //return characteristic.writeValue(data);
+                characteristic.writeString(value);
             })
             .then(() => {
                 latestValueSent.innerHTML = value;
