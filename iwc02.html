@@ -17,7 +17,7 @@
 </head>
 <body>
     <div class="topnav">
-        <h1>ESP32 WebBLE 02/06</h1>
+        <h1>ESP32 WebBLE 02/07</h1>
     </div>
     <div class="content">
         <div class="card-grid">
@@ -38,6 +38,7 @@
 
             <div class="card">
                 <h2>Date & Time</h2>
+                <button id="fillButton" class="ofButton">fill date & time</button> <br><br>
                 Day: <input type="text" name="Day" id="iDay"> <br><br>
                 Month: <input type="text" name="Month" id="iMonth"> <br><br>
                 Year: <input type="text" name="Year" id="iYear"> <br><br>
@@ -68,6 +69,7 @@
     const disconnectButton = document.getElementById('disconnectBleButton');
     const onButton = document.getElementById('onButton');
     const offButton = document.getElementById('offButton');
+    const fillButton = document.getElementById('fillButton');
     const submitButton = document.getElementById('submitButton');
     const retrievedValue = document.getElementById('valueContainer');
     const latestValueSent = document.getElementById('valueSent');
@@ -101,7 +103,13 @@
     // Disconnect Button
     disconnectButton.addEventListener('click', disconnectDevice);
 
-    // Submit Button, temporary just displaying the entered data
+    // fill button
+    // gets current date & time from device and fills the elements
+    fillButton.addEventListener('click', (event) => {
+      fillDateTime();
+    }
+
+    // Submit Button, sending date & time to BLE device
     submitButton.addEventListener('click', (event) => {
       var txt = document.getElementById("iDay").value;
       document.getElementById("valueSent").innerHTML = txt;
@@ -375,6 +383,20 @@
         var minutes = ("00" + currentdate.getMinutes()).slice(-2);
         var seconds = ("00" + currentdate.getSeconds()).slice(-2);
 
+        var datetime = day + "/" + month + "/" + year + " at " + hours + ":" + minutes + ":" + seconds;
+        return datetime;
+    }
+
+    function fillDateTime() {
+        var currentdate = new Date();
+        var day = ("00" + currentdate.getDate()).slice(-2); // Convert day to string and slice
+        var month = ("00" + (currentdate.getMonth() + 1)).slice(-2);
+        var year = currentdate.getFullYear();
+        var hours = ("00" + currentdate.getHours()).slice(-2);
+        var minutes = ("00" + currentdate.getMinutes()).slice(-2);
+        var seconds = ("00" + currentdate.getSeconds()).slice(-2);
+
+        document.getElementById("iDay").innerHTML = day;
         var datetime = day + "/" + month + "/" + year + " at " + hours + ":" + minutes + ":" + seconds;
         return datetime;
     }
