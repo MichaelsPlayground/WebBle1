@@ -17,7 +17,7 @@
 </head>
 <body>
     <div class="topnav">
-        <h1>ESP32 WebBLE 02/01</h1>
+        <h1>ESP32 WebBLE 02/03</h1>
     </div>
     <div class="content">
         <div class="card-grid">
@@ -38,10 +38,10 @@
 
             <div class="card">
                 <h2>Date & Time</h2>
-                Day: <input type="text" name="Day" id="iDay"> <br>
-                Month: <input type="text" name="Month" id="iMonth"> <br>
-                Year: <input type="text" name="Year" id="iYear"> <br>
-                <button id="submitButton" class="submitButton">submit</button>
+                Day: <input type="text" name="Day" id="iDay"> <br><br>
+                Month: <input type="text" name="Month" id="iMonth"> <br><br>
+                Year: <input type="text" name="Year" id="iYear"> <br><br>
+                <button id="submitButton" class="onButton">submit</button>
                 <p class="gray-label">Last value sent: <span id="valueSent"></span></p>
                 <p id="GFG"></p>
             </div>
@@ -98,7 +98,7 @@
     // Submit Button, temporary just displaying the entered data
     submitButton.addEventListener('click', (event) => {
       var txt = document.getElementById("iDay").value;
-      document.getElementById("GFG").innerHTML = txt;
+      document.getElementById("valueSent").innerHTML = txt;
     });  
   
     // Write to the ESP32 LED Characteristic
