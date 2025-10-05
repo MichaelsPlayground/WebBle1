@@ -28,3 +28,10 @@ V02: [https://MichaelsPlayground.github.io/WebBle1/indexcv02.html](https://Micha
 
 V01: [https://MichaelsPlayground.github.io/WebBle1/indexcv01.html](https://MichaelsPlayground.github.io/WebBle1/indexcv01.html)
 
+================================================
+
+ESP32 C6 WebClock Project
+
+Providing of the current date and time via Web BLE to an ESP32 device to display a clock
+
+V01: [https://MichaelsPlayground.github.io/WebBle1/iwc01.html](https://MichaelsPlayground.github.io/WebBle1/iwc01.html)
