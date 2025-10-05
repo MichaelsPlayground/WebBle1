@@ -17,7 +17,7 @@
 </head>
 <body>
     <div class="topnav">
-        <h1>ESP32 WebBLE 02/03</h1>
+        <h1>ESP32 WebBLE 02/04</h1>
     </div>
     <div class="content">
         <div class="card-grid">
@@ -99,7 +99,30 @@
     submitButton.addEventListener('click', (event) => {
       var txt = document.getElementById("iDay").value;
       document.getElementById("valueSent").innerHTML = txt;
+      writeOnCharacteristicDay(txt);
     });  
+
+    function writeOnCharacteristicDay(value){
+        if (bleServer && bleServer.connected) {
+            bleServiceFound.getCharacteristic(dayCharacteristic)
+            .then(characteristic => {
+                console.log("Found the Day characteristic: ", characteristic.uuid);
+                const data = new Uint8Array([value]);
+                return characteristic.writeValue(data);
+            })
+            .then(() => {
+                latestValueSent.innerHTML = value;
+                console.log("Value written to Day characteristic:", value);
+            })
+            .catch(error => {
+                console.error("Error writing to the Day characteristic: ", error);
+            });
+        } else {
+            console.error ("Bluetooth is not connected. Cannot write to characteristic.")
+            window.alert("Bluetooth is not connected. Cannot write to characteristic. \n Connect to BLE first!")
+        }
+    }
+
   
     // Write to the ESP32 LED Characteristic
     onButton.addEventListener('click', () => writeOnCharacteristic(1));
