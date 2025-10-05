@@ -17,7 +17,7 @@
 </head>
 <body>
     <div class="topnav">
-        <h1>ESP32 WebBLE 03/02</h1>
+        <h1>ESP32 WebBLE 03/03</h1>
     </div>
     <div class="content">
         <div class="card-grid">
@@ -89,12 +89,6 @@
     var sensorCharacteristic= '19b10001-e8f2-537e-4f6c-d104768a1214';
     var dateTimeCharacteristic= '19b10003-e8f2-537e-4f6c-d104768a1214';
 
-//  var monthCharacteristic= '19b10004-e8f2-537e-4f6c-d104768a1214';
- //   var yearCharacteristic= '19b10005-e8f2-537e-4f6c-d104768a1214';
-   // var hourCharacteristic= '19b10006-e8f2-537e-4f6c-d104768a1214';
-//    var minuteCharacteristic= '19b10007-e8f2-537e-4f6c-d104768a1214';
-  //  var secondCharacteristic= '19b10008-e8f2-537e-4f6c-d104768a1214';
-
     //Global Variables to Handle Bluetooth
     var bleServer;
     var bleServiceFound;
@@ -125,14 +119,14 @@
       var minutes = ("00" + document.getElementById("iMinute").value).slice(-2);
       var seconds = ("00" + document.getElementById("iSecond").value).slice(-2);
       var datetime = day + "/" + month + "/" + year + "/" + hours + "/" + minutes + "/" + seconds;
-      writeOnCharacteristicDayTime(datetime);
+      writeOnCharacteristicDateTimeTime(datetime);
       document.getElementById("valueSent").innerHTML = datetime;
       
     });  
 
-    function writeOnCharacteristicDayTime(value){
+    function writeOnCharacteristicDateTime(value){
         if (bleServer && bleServer.connected) {
-            bleServiceFound.getCharacteristic(dayCharacteristic)
+            bleServiceFound.getCharacteristic(dateTimeCharacteristic)
             .then(characteristic => {
                 console.log("Found the Day characteristic: ", characteristic.uuid);
                 return characteristic.writeValue(new TextEncoder().encode(value));
@@ -143,132 +137,6 @@
             })
             .catch(error => {
                 console.error("Error writing to the Day characteristic: ", error);
-            });
-        } else {
-            console.error ("Bluetooth is not connected. Cannot write to characteristic.")
-            window.alert("Bluetooth is not connected. Cannot write to characteristic. \n Connect to BLE first!")
-        }
-    }
-  
-    function writeOnCharacteristicDay(value){
-        if (bleServer && bleServer.connected) {
-            bleServiceFound.getCharacteristic(dayCharacteristic)
-            .then(characteristic => {
-                console.log("Found the Day characteristic: ", characteristic.uuid);
-                const data = new Uint8Array([value]);
-                return characteristic.writeValue(data);
-            })
-            .then(() => {
-                latestValueSent.innerHTML = value;
-                console.log("Value written to Day characteristic:", value);
-            })
-            .catch(error => {
-                console.error("Error writing to the Day characteristic: ", error);
-            });
-        } else {
-            console.error ("Bluetooth is not connected. Cannot write to characteristic.")
-            window.alert("Bluetooth is not connected. Cannot write to characteristic. \n Connect to BLE first!")
-        }
-    }
-
-    function writeOnCharacteristicMonth(value){
-        if (bleServer && bleServer.connected) {
-            bleServiceFound.getCharacteristic(monthCharacteristic)
-            .then(characteristic => {
-                console.log("Found the Month characteristic: ", characteristic.uuid);
-                const data = new Uint8Array([value]);
-                return characteristic.writeValue(data);
-            })
-            .then(() => {
-                latestValueSent.innerHTML = value;
-                console.log("Value written to Month characteristic:", value);
-            })
-            .catch(error => {
-                console.error("Error writing to the Month characteristic: ", error);
-            });
-        } else {
-            console.error ("Bluetooth is not connected. Cannot write to characteristic.")
-            window.alert("Bluetooth is not connected. Cannot write to characteristic. \n Connect to BLE first!")
-        }
-    }
-
-    function writeOnCharacteristicYear(value){
-        if (bleServer && bleServer.connected) {
-            bleServiceFound.getCharacteristic(yearCharacteristic)
-            .then(characteristic => {
-                console.log("Found the Year characteristic: ", characteristic.uuid);
-                const data = new Uint8Array([value - 2000]);
-                return characteristic.writeValue(data);
-            })
-            .then(() => {
-                latestValueSent.innerHTML = value;
-                console.log("Value written to Year characteristic:", value);
-            })
-            .catch(error => {
-                console.error("Error writing to the Year characteristic: ", error);
-            });
-        } else {
-            console.error ("Bluetooth is not connected. Cannot write to characteristic.")
-            window.alert("Bluetooth is not connected. Cannot write to characteristic. \n Connect to BLE first!")
-        }
-    }
-
-    function writeOnCharacteristicHour(value){
-        if (bleServer && bleServer.connected) {
-            bleServiceFound.getCharacteristic(hourCharacteristic)
-            .then(characteristic => {
-                console.log("Found the Hour characteristic: ", characteristic.uuid);
-                const data = new Uint8Array([value]);
-                return characteristic.writeValue(data);
-            })
-            .then(() => {
-                latestValueSent.innerHTML = value;
-                console.log("Value written to Hour characteristic:", value);
-            })
-            .catch(error => {
-                console.error("Error writing to the Hour characteristic: ", error);
-            });
-        } else {
-            console.error ("Bluetooth is not connected. Cannot write to characteristic.")
-            window.alert("Bluetooth is not connected. Cannot write to characteristic. \n Connect to BLE first!")
-        }
-    }
-
-    function writeOnCharacteristicMinute(value){
-        if (bleServer && bleServer.connected) {
-            bleServiceFound.getCharacteristic(minuteCharacteristic)
-            .then(characteristic => {
-                console.log("Found the Minute characteristic: ", characteristic.uuid);
-                const data = new Uint8Array([value]);
-                return characteristic.writeValue(data);
-            })
-            .then(() => {
-                latestValueSent.innerHTML = value;
-                console.log("Value written to Minute characteristic:", value);
-            })
-            .catch(error => {
-                console.error("Error writing to the Minute characteristic: ", error);
-            });
-        } else {
-            console.error ("Bluetooth is not connected. Cannot write to characteristic.")
-            window.alert("Bluetooth is not connected. Cannot write to characteristic. \n Connect to BLE first!")
-        }
-    }
-
-    function writeOnCharacteristicSecond(value){
-        if (bleServer && bleServer.connected) {
-            bleServiceFound.getCharacteristic(secondCharacteristic)
-            .then(characteristic => {
-                console.log("Found the Second characteristic: ", characteristic.uuid);
-                const data = new Uint8Array([value]);
-                return characteristic.writeValue(data);
-            })
-            .then(() => {
-                latestValueSent.innerHTML = value;
-                console.log("Value written to Second characteristic:", value);
-            })
-            .catch(error => {
-                console.error("Error writing to the Second characteristic: ", error);
             });
         } else {
             console.error ("Bluetooth is not connected. Cannot write to characteristic.")
@@ -427,9 +295,6 @@
         hourContainer.value = hours;
         minuteContainer.value = minutes;
         secondContainer.value = seconds;
-      
-        var datetime = day + "/" + month + "/" + year + " at " + hours + ":" + minutes + ":" + seconds;
-        return datetime;
     }
 
 
