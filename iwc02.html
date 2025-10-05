@@ -38,10 +38,12 @@
 
             <div class="card">
                 <h2>Date & Time</h2>
-                Day: <input type="text" name="Day" id="iDay">
-                <button id="onButton" class="onButton">ON</button>
-                <button id="offButton" class="offButton">OFF</button>
+                Day: <input type="text" name="Day" id="iDay"> <br>
+                Month: <input type="text" name="Month" id="iMonth"> <br>
+                Year: <input type="text" name="Year" id="iYear"> <br>
+                <button id="submitButton" class="submitButton">submit</button>
                 <p class="gray-label">Last value sent: <span id="valueSent"></span></p>
+                <p id="GFG"></p>
             </div>
           
             <div class="card">
@@ -63,6 +65,7 @@
     const disconnectButton = document.getElementById('disconnectBleButton');
     const onButton = document.getElementById('onButton');
     const offButton = document.getElementById('offButton');
+    const submitButton = document.getElementById('submitButton');
     const retrievedValue = document.getElementById('valueContainer');
     const latestValueSent = document.getElementById('valueSent');
     const bleStateContainer = document.getElementById('bleState');
@@ -92,6 +95,12 @@
     // Disconnect Button
     disconnectButton.addEventListener('click', disconnectDevice);
 
+    // Submit Button, temporary just displaying the entered data
+    submitButton.addEventListener('click', (event) => {
+      var txt = document.getElementById("iDay").value;
+      document.getElementById("GFG").innerHTML = txt;
+    });  
+  
     // Write to the ESP32 LED Characteristic
     onButton.addEventListener('click', () => writeOnCharacteristic(1));
     offButton.addEventListener('click', () => writeOnCharacteristic(0));
